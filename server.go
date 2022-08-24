@@ -22,6 +22,15 @@ func main() {
 
 		return c.JSON(http.StatusOK, resp.Data)
 	})
+	
+	songsRoutes.GET("/songx", func(c echo.Context) error {
+		resp, err := client.Service("songs").Find()
+		if err != nil {
+			return c.JSON(http.StatusNonAuthoritativeInfo, err)
+		}
+
+		return c.JSON(http.StatusOK, resp.Data)
+	})
 
 	songsRoutes.POST("", func(c echo.Context) error {
 		body := make(map[string]interface{})
